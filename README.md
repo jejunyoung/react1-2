@@ -1,11 +1,73 @@
 # 제준영 (202030329)
 - ```
-  6/5 in readme
+  6/11 in readme
 
-  2024년 6월 5일 수업 내용
+  2024년 6월 11일 수업 내용
   ```	
 
+## 2024년 6월 11일 수업 내용
+
+### 컨텍스트
+- 부모에서 자식으로 단방향으로 전달
+- 컴포넌트 트리를 통해 곧바로 컴포넌트에 전달하는 새로운 방식
+- 여러 컴포넌트에서 자주 필요로 하는 데이터
+- React.createContext()한수를 사용해서 ThemeContext라는 이름의 컴포넌트 생성
+
+### 컨텍스트 사용시 고려사항
+- 컴포넌트와 컨텍스가 연동되면 재사용성이 떨어짐
+- 많은 컴포넌트가 데이터에 필요한것이 아니면 props를 사용하는 것이 좋다
+
+### 컨텍스트 API
+- 컨텍스트를 생성학 위한 함수
+- 파라메타에는 기본값을 삽입
+
+
+### React.createContext
+- 하위 컴포넌트는 가장 가까운 상위 레벨의 Provider로 부터 컨텍스트를 받음
+- Provider를 찾을 수 없으면 설정한 기본값을 사용
+- ```const MyContext = React.createContext(기본값)```
+
+### Context.Provider
+- Context.Provider 컴포넌트로 하위 컴포넌트를 감싸주면 모든 하위 컴포넌트들은 데이터 접근 가능
+- value라는 props이 있고 이것을 Provider 컴포넌트 하위에 있는 컴포넌트에게 전달
+- 하위 컴포넌트를 consumer컴포넌트라고 부름
+- ```<MyContext.Provider value={/* some value*/}```
+
+### ~~Class.contextType~~
+
+### Context.Consumer
+- Context.Consumer를 사용하여 컨텍스트를 구독할 수 있음
+- 컴포넌트의 자식으로 함수가 올수 있는 것을 function as a child라고 함
+- 
+  ```
+    <MyContext.Consumer>
+      {value => 컨텍스트의 값에 따라서 컴포넌트 렌더링}
+    <MyContext.Consumer/>
+  ```
+
+### Context.displayName
+- 컨텍스트 객체는 displayName 속성을 갖는다
+- 
+  ```
+    const MyContext = React.createContext(some value)
+    MyContext.displayName = 'MyDisplayName'
+  ```
+
+### 여러 개의 컨텍스트 사용
+- Context.Provider를 사용하여 여러 개의컨텍트를 중첩에서 사용할 수 있다
+- 너무 많이 중첩하면 않좋다
+
+### useContext
+- Consumer컴포넌트로 감싸주는 것보다 좋은 방법은 Hook를 하는 것이다
+- useContext() 훅은 React.createContext() 함수 호출로 생성된 컨텍스츠 객체를 인자로 받아 사용
+- ```useContext(MyContext)```
+<!-- ------------------------------------------------------------------------- -->
+
 ## 2024년 6월 5일 수업 내용
+[합석](#합성)  
+[Contaiment](#contaiment)  
+[Specialization](#specialization)  
+[Contaiment와 Specialization 같이 사용](#contaiment와-specialization-같이-사용)
 
 ### 합성
 - Composition
@@ -13,14 +75,19 @@
 - 특정 컴포넌트가 하위 컨포넌트를 포함하고 있는 형태
 - prop을 사용해서 자식 엘리먼트르 사용(꼭 prop를 사용할 필요는 없음)
 
-#### Contaiment
+### Contaiment
 - props.children를 통해 하위 컴포넌트를 하나로 모아서 제공
 - SplitPane를 사용해서 화면의 왼쪽 오른쪽으로 분할함
   - SplitPane을 사용해서 left, right 두개의 props를 정의
 
-#### Specialization
+### Specialization
 - 특별한 케이스
 - 범용적인 개념을 구별히 되게 구체화하는 것을 특수화
+
+### Contaiment와 Specialization 같이 사용
+- Contaiment는 Props.children를 사용
+- Specialization는 props를 사용
+- Contaiment와 Specialization 같이 사용 가능
 
 <!-- ------------------------------------------------------------------------- -->
 
